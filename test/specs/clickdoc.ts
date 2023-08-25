@@ -5,19 +5,20 @@ import ClickdocPage from '../pageobjects/clickdoc.page'
 import SecurePage from '../pageobjects/secure.page'
 
 describe('Physician informations', () => {
+    before('Navigate to physicians personal page', async () => {
+        await ClickdocPage.open()
+
+browser.maximizeWindow()
+  
+await ClickdocPage.cookie.click()
+
+await ClickdocPage.inputPhysicianName.setValue('Peter Test')
+
+await ClickdocPage.physicianNameDDM.waitForExist()
+await ClickdocPage.physicianNameDDM.click()
+      })
 
     it('Verify the name and address of the physician', async() => {
-    
-    await ClickdocPage.open()
-
-    browser.maximizeWindow()
-      
-    await ClickdocPage.cookie.click()
-    
-    await ClickdocPage.inputPhysicianName.setValue('Peter Test')
-
-    await ClickdocPage.physicianNameDDM.waitForExist()
-    await ClickdocPage.physicianNameDDM.click()
     
     await expect(SecurePage.physicianName).toBeExisting()
     await expect(SecurePage.physicianName).toHaveTextContaining('Dr. Peter Test')
